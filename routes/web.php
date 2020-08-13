@@ -16,7 +16,4 @@ Auth::routes();
 
 Route::get('/',  "AllMusicController@index");
 
-
-Route::get('/myplaylist', function (){
-    return view('playlist.myplaylist');
-});
+Route::get('/myplaylist', "ArtistController@index");

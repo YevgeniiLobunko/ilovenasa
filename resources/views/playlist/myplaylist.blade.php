@@ -1,1 +1,8 @@
-<h3>2222222</h3>
+@extends('layouts.app')
+
+
+@section('content')
+
+    <h3>my playlist</h3>
+
+@endsection
