@@ -15,11 +15,11 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($tracks as $k => $track)
+        @foreach($playlist as $k => $track)
             <tr>
                 <td>{{$k+1}}</td>
-                <td> </td>
-                <td>{{$track->name}}</td>
+                <td>  </td>
+                <td>{{ $track->track->name }} </td>
                 <td>play, stop, start, delete</td>
             </tr>
         @endforeach

@@ -23,22 +23,13 @@ class AllMusicController extends Controller
     {
 
         $list = ListCollections::find($list_id);
-        $playlist = Playlist::where('list_id', '=', $list_id)->get()->toArray();
-
-
-        $tmp = [];
-        foreach ($playlist as $k => $v) {
-            array_push($tmp, $v['track_id']);
-        }
-
-        $tracks = Track::find($tmp);
+        $playlist = Playlist::with('track')->where('list_id', '=', $list_id)->get();
 
         $list = [
             'id' => $list_id,
             'name' => $list->name
         ];
-
-        return view('playlist.track_in_list', compact(['list', 'tracks']));
+        return view('playlist.track_in_list', compact(['list', 'playlist']));
     }
 
     protected function availableLists()
