@@ -14,7 +14,7 @@ class AllMusicController extends Controller
 
     public function index()
     {
-        $allmusics = Track::with('artist')->get();
+        $allmusics = Track::with('artist')->paginate(10);
 
         return view('allmusic', compact('allmusics'));
     }
@@ -37,7 +37,6 @@ class AllMusicController extends Controller
             'id' => $list_id,
             'name' => $list->name
         ];
-
 
         return view('playlist.track_in_list', compact(['list', 'tracks']));
     }

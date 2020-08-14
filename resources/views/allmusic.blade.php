@@ -101,6 +101,7 @@
 
             </tbody>
         </table>
+        {{ $allmusics->links() }}
     </div>
 </div>
 
