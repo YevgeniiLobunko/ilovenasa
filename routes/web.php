@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/',  "AllMusicController@index");
+Route::get('/available_lists',  "AllMusicController@availableLists")->name('available_lists');
 Route::get('/tracks/{id}', 'AllMusicController@trackInList');
 
 Route::resource('user_lists', "UserListController");

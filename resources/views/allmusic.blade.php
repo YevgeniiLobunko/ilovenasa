@@ -67,6 +67,7 @@
         <div class="top-right links">
             @auth
                 <a href="{{ route('user_lists.index') }}">My playlist</a>
+                <a href="{{ route('available_lists') }}">Available music lists</a>
             @else
                 <a href="{{ route('login') }}">Login</a>
 

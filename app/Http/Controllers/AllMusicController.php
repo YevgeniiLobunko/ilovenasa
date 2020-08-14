@@ -40,4 +40,11 @@ class AllMusicController extends Controller
 
         return view('playlist.track_in_list', compact(['list', 'tracks']));
     }
+
+    protected function availableLists()
+    {
+        $lists = ListCollections::with('user')->where('public', '=', '1')->get();
+
+        return view('playlist.availableLists', compact('lists'));
+    }
 }
