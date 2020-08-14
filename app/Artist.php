@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Track;
+//use App\Track;
 
 class Artist extends Model
 {

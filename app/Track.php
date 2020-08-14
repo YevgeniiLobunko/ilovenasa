@@ -10,4 +10,10 @@ class Track extends Model
     {
         return $this->belongsTo(Artist::class);
     }
+
+
+    public function playlist () {
+        return $this->hasMany(Playlist::class);
+    }
+
 }

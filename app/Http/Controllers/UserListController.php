@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
+use App\Track;
+use App\Playlist;
 use App\ListCollections;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserListController extends Controller
 {
@@ -36,7 +38,9 @@ class UserListController extends Controller
      */
     public function create()
     {
-        return view('playlist.create');
+
+        $tracks = Track::with('artist')->get();
+        return view('playlist.create', compact('tracks'));
     }
 
     /**
@@ -56,8 +60,17 @@ class UserListController extends Controller
         $list->name = $request->input()['name'];
         $list->public = $request->has('public');
         $list->user_id = $request->input()['user_id'];
-
         $list->save();
+
+        $list_id = $list->id;
+        foreach ($request->input()['tracks'] as $k => $track_id) {
+            $playlist = new Playlist();
+            $playlist->list_id = $list_id;
+            $playlist->track_id = $track_id;
+            $playlist->save();
+
+        }
+
         return redirect()->route('user_lists.index');
     }
 
@@ -95,14 +108,16 @@ class UserListController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\UserList  $userList
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(UserList $userList)
+
+    public function destroy( $list_id)
     {
-        //
+        $playlist = Playlist::where('list_id', '=', $list_id)->delete();
+
+        $list = ListCollections::find($list_id);
+
+        $list->delete();
+
+        return redirect()->route('user_lists.index');
+
     }
 }
