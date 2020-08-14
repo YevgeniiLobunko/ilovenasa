@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Artist;
+use Illuminate\Support\Facades\Auth;
+use App\ListCollections;
 use Illuminate\Http\Request;
 
-class ArtistController extends Controller
+class UserListController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,18 @@ class ArtistController extends Controller
      */
     public function index()
     {
-        //
+
+
+        $userId = Auth::id();
+
+        $userLists = null;
+
+        if(ListCollections::where('user_id', '=', $userId)->count() > 0) {
+            $userLists = ListCollections::where('user_id', '=', $userId)->get();
+        }
+
+
+        return view('playlist.playlists', compact('userLists'));
     }
 
     /**
@@ -24,7 +36,7 @@ class ArtistController extends Controller
      */
     public function create()
     {
-        //
+        return view('playlist.create');
     }
 
     /**
@@ -35,16 +47,27 @@ class ArtistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $list = new ListCollections();
+        $list->name = $request->input()['name'];
+        $list->public = $request->has('public');
+        $list->user_id = $request->input()['user_id'];
+
+        $list->save();
+        return redirect()->route('user_lists.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Artist  $artist
+     * @param  \App\UserList  $userList
      * @return \Illuminate\Http\Response
      */
-    public function show(Artist $artist)
+    public function show(UserList $userList)
     {
         //
     }
@@ -52,10 +75,10 @@ class ArtistController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Artist  $artist
+     * @param  \App\UserList  $userList
      * @return \Illuminate\Http\Response
      */
-    public function edit(Artist $artist)
+    public function edit(UserList $userList)
     {
         //
     }
@@ -64,10 +87,10 @@ class ArtistController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Artist  $artist
+     * @param  \App\UserList  $userList
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Artist $artist)
+    public function update(Request $request, UserList $userList)
     {
         //
     }
@@ -75,10 +98,10 @@ class ArtistController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Artist  $artist
+     * @param  \App\UserList  $userList
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Artist $artist)
+    public function destroy(UserList $userList)
     {
         //
     }

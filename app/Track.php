@@ -3,9 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Artist;
 
-class AllMusic extends Model
+class Track extends Model
 {
     public function artist()
     {

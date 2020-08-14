@@ -3,12 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\AllMusic;
+use App\Track;
 
 class Artist extends Model
 {
     public function allmusics()
     {
-        return $this->hasMany(AllMusic::class);
+        return $this->hasMany(Track::class);
     }
 }

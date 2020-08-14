@@ -2,7 +2,5 @@
 
 
 @section('content')
-
-    <h3>my playlist</h3>
-
+dfgdfgdf
 @endsection

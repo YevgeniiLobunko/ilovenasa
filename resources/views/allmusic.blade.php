@@ -66,7 +66,7 @@
     @if (Route::has('login'))
         <div class="top-right links">
             @auth
-                <a href="{{ url('/myplaylist') }}">My playlist</a>
+                <a href="{{ route('user_lists.index') }}">My playlist</a>
             @else
                 <a href="{{ route('login') }}">Login</a>
 
